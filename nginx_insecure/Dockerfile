@@ -1,4 +1,4 @@
-FROM hpvstest/hpvsop-base-ssh:1.2.0-release-86a8e01
+FROM jiangmz/hpvsop-base-ssh:1.2.0-release-86a8e01
 
 COPY files /
 
