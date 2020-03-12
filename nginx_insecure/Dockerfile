@@ -1,7 +1,7 @@
 FROM hpvstest/hpvsop-base:latest
 
 COPY files /
-COPY data /data
+#COPY data /data
 
 RUN chmod +x /usr/local/nginx/start-nginx.sh
 
