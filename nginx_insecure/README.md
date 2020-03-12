@@ -1,7 +1,9 @@
 The nginx config file is at: `/data/conf/nginx.conf`
 The nginx sample UI pages are at: `/data/html`
 
+Nginx will listen on port 8080 when it is setup. Make sure to map the port when run the image.
 
+`docker run -dit image:tag -p <hostport>:8080`
 
 **NOTE:**
 
