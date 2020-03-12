@@ -1,3 +1,8 @@
+The nginx config file is at: `/data/conf/nginx.conf`
+The nginx sample UI pages are at: `/data/html`
+
+
+
 **NOTE:**
 
 Update the Dockerfile before build the image.
@@ -5,7 +10,7 @@ Update the Dockerfile before build the image.
 
 
 ```
-  FROM <docker_username>/hpvsop-base:<image-tag>
+  FROM hpvstest/hpvsop-base:latest
 
   COPY files /
 
@@ -18,6 +23,6 @@ Update the Dockerfile before build the image.
 
 At the first line:
 
-- Update the `<docker_username>` with the **docker account**.
-- Update the `<image_tag>` with the tag of image `hpvsop-base` in the specified docker account.
-
+- Update the `hpvstest` with your own **docker account** if needed.
+- Update the `latest` with the specified tag of image `hpvsop-base` if needed..
+~                                                                                                   
