@@ -1,6 +1,7 @@
-FROM <docker_username>/hpvsop-base:<image-tag>
+FROM hpvstest/hpvsop-base:latest
 
 COPY files /
+COPY data /data
 
 RUN chmod +x /usr/local/nginx/start-nginx.sh
 
