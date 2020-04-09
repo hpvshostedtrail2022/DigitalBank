@@ -32,26 +32,26 @@ http {
     #gzip  on;
 
     server {
-        listen       80;
-        server_name  hpvsop.test;
-        rewrite ^(.*)$ https://$host$1 permanent;
+        listen       8080;
+        server_name  localhost;
+
         #charset koi8-r;
 
         #access_log  logs/host.access.log  access;
 
-        #location / {
-        #    root   /usr/share/nginx/html;
-        #    index  index.html index.htm;
-        #}
+        location / {
+            root   /data/html;
+            index  index.html index.htm;
+        }
 
-        #error_page  404              /50x.html;
+        error_page  404              /50x.html;
 
         # redirect server error pages to the static page /50x.html
         #
-        #error_page   500 502 503 504  /50x.html;
-        #location = /50x.html {
-        #    root   /usr/share/nginx/html;
-        #}
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /data/html;
+        }
 
         # proxy the PHP scripts to Apache listening on 127.0.0.1:80
         #
@@ -93,24 +93,24 @@ http {
 
 
     # HTTPS server
-    
-    server {
-        listen       443 ssl;
-        server_name  hpvsop.test;
-	    #ssl on;
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
 
-        ssl_certificate /usr/local/nginx/ssl/hpvsop.test.crt;
-        ssl_certificate_key /usr/local/nginx/ssl/hpvsop.test.key;
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
 
-        ssl_session_cache    shared:SSL:1m;
-        ssl_session_timeout  5m;
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
 
-        ssl_ciphers  HIGH:!aNULL:!MD5;
-        ssl_prefer_server_ciphers  on;
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
 
-        location / {
-            root   /data/html;
-            index  index.html index.htm;
-        }
-    }
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
 }
