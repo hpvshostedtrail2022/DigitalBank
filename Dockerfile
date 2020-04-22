@@ -9,7 +9,7 @@ RUN chown -R `id -u` /data
 RUN chmod +x /usr/local/nginx/start-nginx.sh
 EXPOSE 443
 
-CMD ["sh","/usr/local/nginx/start-nginx.sh"]
-#ENTRYPOINT ["/usr/local/nginx/start-nginx.sh"]
+#CMD ["sh","/usr/local/nginx/start-nginx.sh"]
+ENTRYPOINT ["/usr/local/nginx/start-nginx.sh"]
 #CMD ["/usr/local/nginx/sbin/nginx","-c","/data/conf/nginx.conf"]
 #CMD ["/bin/bash"]
