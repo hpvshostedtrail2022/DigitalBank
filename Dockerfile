@@ -3,6 +3,7 @@
 #FROM cjing19/hpvsop-base-ssh2:1.2.1-release-d45a706
 FROM soltest/hpvsop-base-ssh:1.2.1-release-d45a706
 
+#FROM cjing19/hpvsop-base-ssh2:1.2.1-release-d45a706
 
 COPY files /
 #COPY data /data
