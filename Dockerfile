@@ -1,23 +1,24 @@
-#ARG DOCKER_ACCOUNT
-#ARG TAG
-#FROM ${DOCKER_ACCOUNT}/hpvsop-base:${TAG}
+FROM ibmcom/ibmnode:latest
+LABEL maintainer="amalamine@ae.ibm.com"
 
-#FROM us.icr.io/solutiontest/hpvsop-base-ssh:1.2.0.1-develop-58d19c1
-#FROM hpvsst/hpvsop-base-ssh:1.2.0.1-release-d45a706
-#FROM cjing19/hpvsop-base-ssh2:1.2.1-release-d45a706
-FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.1-release-d45a706
-#FROM jiangmz/hpvsop-base:1.2.1-release-d45a706
-#FROM cjing19/hpvsop-base-ssh15:1.2.0.1-release-d45a706
+# Upgrade npm to latest version
 
-COPY files /
-#COPY data /data
-RUN chown -R `id -u` /data
-COPY scripts/start-nginx.sh /usr/bin
+RUN npm install -g yarnpkg
+RUN yarn global add npm
+RUN npm -v
+RUN npm config set unsafe-perm=true
 
-RUN chmod +x /usr/bin/start-nginx.sh
-#EXPOSE 443
+# Copy app & set working directory
+WORKDIR /app
+COPY . /app
+RUN npm install; npm prune --production
 
-ENTRYPOINT ["/usr/bin/start-nginx.sh"]
+ENV NODE_ENV production
+ENV SESSION_SECRET 5a4e0d2c6198976aaff66bc8
+ENV MONGO_USERNAME mongo
+ENV MONGO_PASSWORD mongo1234
+ENV MONGO_DB admin
 
-#CMD ["sh","/usr/local/nginx/start-nginx.sh"]
-#CMD ["/usr/local/nginx/sbin/nginx","-c","/data/conf/nginx.conf"]
+EXPOSE 3100 3200 3400 3600 3800 4000 4100
+
+CMD [ "npm","start" ]
