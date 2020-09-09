@@ -41,9 +41,13 @@ var port = 3100;
 
 console.log(`Running on ${process.env.BASE_PATH}:${port}, connecting to ${process.env.MONGO_URL}`)
 
-mongoose.connect(process.env.MONGO_URL, function (ignore, connection) {
-    connection.onOpen();
-    app.listen(port, function () {
-        console.log('Innovate portal running on port: %d', port);
-    });
-});
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(
+    () => {
+        server.listen(port, function(){
+            console.log("Server running on port: %d", port)
+        })
+    },
+    err => {
+        console.log(err)
+    }
+);
