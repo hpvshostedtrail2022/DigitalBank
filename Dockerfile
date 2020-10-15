@@ -30,8 +30,6 @@ RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
     #mount -o remount, exec /tmp && \
     /SETUP/tmp/DB2INSTALLER/server_dec/db2_install -b /opt/ibm/db2/V11.5 -n -y -p SERVER && \
     /opt/ibm/db2/V11.5/instance/db2icrt -u db2inst1 db2inst1 && \
-    /bin/su -c "db2sampl" - db2inst1 && \
-    /bin/su -c "/home/db2inst1/sqllib/adm/db2start" -c db2inst1 &&  \
     chmod +x /SETUP/bin/* && \
     rm -r /SETUP/tmp
 
