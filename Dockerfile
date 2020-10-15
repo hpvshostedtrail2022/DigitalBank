@@ -27,7 +27,7 @@ COPY SETUP /SETUP/
 RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
     curl -o /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz http://9.46.66.119:10010/DB2S_11.5.4_LSZML.tar.gz && \
     tar -xzf /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz -C /SETUP/tmp/DB2INSTALLER/ && \
-    mount -o remount, exec /tmp && \
+    #mount -o remount, exec /tmp && \
     /SETUP/tmp/DB2INSTALLER/server_dec/db2_install -b /opt/ibm/db2/V11.5 -n -y -p SERVER && \
     /opt/ibm/db2/V11.5/instance/db2icrt -u db2inst1 db2inst1 && \
     /bin/su -c "db2sampl" - db2inst1 && \
