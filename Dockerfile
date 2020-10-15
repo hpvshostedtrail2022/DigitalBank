@@ -24,7 +24,7 @@ ENV DB2INST1_PASSWORD passw0rd
 COPY SETUP /SETUP/ 
 
 # Part E, Extract, run the setup file, add license and delete the temporary files 
-RUN mkdir /SETUP/tmp/DB2INSTALLER && \
+RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
     curl -o /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz http://9.46.66.119:10010/DB2S_11.5.4_LSZML.tar.gz && \
     tar -xzf /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz -C /SETUP/tmp/DB2INSTALLER/ && \
     mount -o remount, exec /tmp && \
