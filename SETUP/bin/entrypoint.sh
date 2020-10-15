@@ -12,7 +12,7 @@ fi
 function start {
   /bin/su -c "db2level" - db2inst1
   /bin/su -c "db2sampl" - db2inst1
-  /bin/su -c "/home/db2inst1/sqllib/adm/db2start" -c db2inst1
+  /bin/su -c "/home/db2inst1/sqllib/adm/db2start" - db2inst1
 }
 
 # function start {
