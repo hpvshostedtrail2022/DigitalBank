@@ -37,7 +37,7 @@ RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
 # Part F 
 #Start the DB2 server and print out the diag log 
 ENTRYPOINT ["/bin/bash","/SETUP/bin/entrypoint.sh" ] 
-CMD [ "start" ] 
+CMD [ "start", "/sbin/init" ] 
 
 # Part G # DB2 instance port 
 EXPOSE 50000 50001

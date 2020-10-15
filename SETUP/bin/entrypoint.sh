@@ -9,7 +9,6 @@ else
   echo -e "$DB2INST1_PASSWORD\n$DB2INST1_PASSWORD" | passwd db2inst1
 fi
 
-
 function start {
   /bin/su -c "db2level" - db2inst1
   /bin/su -c "db2sampl" - db2inst1
