@@ -10,7 +10,7 @@ RUN apt-get update && \
     binutils \
     gcc \
     libstdc++6 && \
-    groupadd -g 666 db2iadm1
+    groupadd -g 666 db2iadm1 && \
     useradd -u 1004 -g db2iadm1 -m -d /home/db2inst1 db2inst1
 
 # Part C # Environment variables are needed by the base DB2 image 
@@ -42,4 +42,4 @@ ENTRYPOINT ["/bin/bash","/SETUP/bin/entrypoint.sh" ]
 CMD [ "start" ] 
 
 # Part G # DB2 instance port 
-EXPOSE 50000 50001 
+EXPOSE 50000 50001
