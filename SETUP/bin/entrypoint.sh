@@ -1,15 +1,19 @@
 #!bin/bash
 
-if [ -z "$DB2INST1_PASSWORD" ]; then
-  echo ""
-  echo >&2 'error: DB2INST1_PASSWORD not set'
-  echo >&2 'Did you forget to add -e DB2INST1_PASSWORD=... ?'
-  exit 1
-else
-  echo -e "$DB2INST1_PASSWORD\n$DB2INST1_PASSWORD" | passwd db2inst1
-fi
+# if [ -z "$DB2INST1_PASSWORD" ]; then
+#   echo ""
+#   echo >&2 'error: DB2INST1_PASSWORD not set'
+#   echo >&2 'Did you forget to add -e DB2INST1_PASSWORD=... ?'
+#   exit 1
+# else
+#   echo -e "$DB2INST1_PASSWORD\n$DB2INST1_PASSWORD" | passwd db2inst1
+# fi
 
 function start {
+  mount -o remount, exec /tmp && \
+  /SETUP/tmp/DB2INSTALLER/server_dec/db2_install -b /opt/ibm/db2/V11.5 -n -y -p SERVER
+  rm -r /SETUP/tmp
+  /opt/ibm/db2/V11.5/instance/db2icrt -u db2inst1 db2inst1
   /bin/su -c "db2level" - db2inst1
   /bin/su -c "db2sampl" - db2inst1
   /bin/su -c "/home/db2inst1/sqllib/adm/db2start" - db2inst1
