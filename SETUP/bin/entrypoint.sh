@@ -19,12 +19,17 @@
 #   /bin/su -c "/home/db2inst1/sqllib/adm/db2start" - db2inst1
 # }
 
-cat /etc/hosts
-cat /home/db2inst1/sqllib/db2nodes.cfg 
+function cfghost {
+  cat /etc/hosts
+  cat /home/db2inst1/sqllib/db2nodes.cfg 
+  VMNAME=$(cat /etc/hosts | tail -n 1 | awk '{print $2}')
+  echo "0 $VMNAME 0" > /home/db2inst1/sqllib/db2nodes.cfg 
+  cat /home/db2inst1/sqllib/db2nodes.cfg 
+}
 
 function test {
   /bin/su -c "db2level" - db2inst1
-  /bin/su -c "db2saml" - db2inst1
+  /bin/su -c "db2sampl" - db2inst1
 }
 
 function start {
@@ -53,6 +58,8 @@ function run {
   # Execute all commands as the DB admin
   /bin/su -c "$*" - db2inst1
 }
+
+cfghost
 
 "$@"
 
