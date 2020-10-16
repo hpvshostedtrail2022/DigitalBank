@@ -9,29 +9,31 @@
 #   echo -e "$DB2INST1_PASSWORD\n$DB2INST1_PASSWORD" | passwd db2inst1
 # fi
 
-function start {
-  mount -o remount, exec /tmp && \
-  /SETUP/tmp/DB2INSTALLER/server_dec/db2_install -b /opt/ibm/db2/V11.5 -n -y -p SERVER
-  rm -r /SETUP/tmp
-  /opt/ibm/db2/V11.5/instance/db2icrt -u db2inst1 db2inst1
-  /bin/su -c "db2level" - db2inst1
-  /bin/su -c "db2sampl" - db2inst1
-  /bin/su -c "/home/db2inst1/sqllib/adm/db2start" - db2inst1
-}
-
 # function start {
-#   trap stop SIGTERM
-#   echo "Attempting to stop any DB2 instances"
-#   /bin/su -c "db2stop force" - db2inst1
-#   echo "Attempting to clean up IP resources"
-#   /bin/su -c "ipclean" - db2inst1
-#   echo "Attempting to start DB2 instance"
-#   /bin/su -c "db2start" - db2inst1
-#   echo DB2 started on `date`
-#   tail -F /home/db2inst1/sqllib/db2dump/db2diag.log &
-#   LOG_PID=$!
-#   wait $LOG_PID
+#   mount -o remount, exec /tmp && \
+#   /SETUP/tmp/DB2INSTALLER/server_dec/db2_install -b /opt/ibm/db2/V11.5 -n -y -p SERVER
+#   rm -r /SETUP/tmp
+#   /opt/ibm/db2/V11.5/instance/db2icrt -u db2inst1 db2inst1
+#   /bin/su -c "db2level" - db2inst1
+#   /bin/su -c "db2sampl" - db2inst1
+#   /bin/su -c "/home/db2inst1/sqllib/adm/db2start" - db2inst1
 # }
+
+function start {
+  /bin/su -c "db2level" - db2inst1
+
+  trap stop SIGTERM
+  echo "Attempting to stop any DB2 instances"
+  /bin/su -c "db2stop force" - db2inst1
+  echo "Attempting to clean up IP resources"
+  /bin/su -c "ipclean" - db2inst1
+  echo "Attempting to start DB2 instance"
+  /bin/su -c "db2start" - db2inst1
+  echo DB2 started on `date`
+  tail -F /home/db2inst1/sqllib/db2dump/db2diag.log &
+  LOG_PID=$!
+  wait $LOG_PID
+}
 
 function stop {
   echo "Attempting to stop DB2"
