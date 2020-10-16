@@ -20,11 +20,13 @@
 # }
 
 function cfghost {
+  mount -o remount, exec /tmp
   cat /etc/hosts
   cat /home/db2inst1/sqllib/db2nodes.cfg 
   VMNAME=$(cat /etc/hosts | tail -n 1 | awk '{print $2}')
   echo "0 $VMNAME 0" > /home/db2inst1/sqllib/db2nodes.cfg 
-  cat /home/db2inst1/sqllib/db2nodes.cfg 
+  cat /home/db2inst1/sqllib/db2nodes.cfg
+  ls /home/db2inst1/sqllib
 }
 
 # function test {
@@ -34,6 +36,7 @@ function cfghost {
 
 function start {
   /bin/su -c "db2level" - db2inst1
+  /bin/su -c "db2sampl" - db2inst1
   trap stop SIGTERM
   echo "Attempting to stop any DB2 instances"
   /bin/su -c "db2stop force" - db2inst1
