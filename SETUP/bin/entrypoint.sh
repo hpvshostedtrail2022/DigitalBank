@@ -19,9 +19,12 @@
 #   /bin/su -c "/home/db2inst1/sqllib/adm/db2start" - db2inst1
 # }
 
-function start {
+function test {
   /bin/su -c "db2level" - db2inst1
+  /bin/su -c "db2saml" - db2inst1
+}
 
+function start {
   trap stop SIGTERM
   echo "Attempting to stop any DB2 instances"
   /bin/su -c "db2stop force" - db2inst1
@@ -49,3 +52,5 @@ function run {
 }
 
 "$@"
+
+exec /sbin/init
