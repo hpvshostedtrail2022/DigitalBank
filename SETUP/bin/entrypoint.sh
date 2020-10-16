@@ -19,6 +19,9 @@
 #   /bin/su -c "/home/db2inst1/sqllib/adm/db2start" - db2inst1
 # }
 
+cat /etc/hosts
+cat /home/db2inst1/sqllib/db2nodes.cfg 
+
 function test {
   /bin/su -c "db2level" - db2inst1
   /bin/su -c "db2saml" - db2inst1
@@ -53,4 +56,4 @@ function run {
 
 "$@"
 
-exec /sbin/init
+#exec " /sbin/init & "
