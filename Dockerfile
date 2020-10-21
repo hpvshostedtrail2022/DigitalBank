@@ -15,7 +15,10 @@ RUN apt-get update && \
     groupadd -g 668 dasadm1 && \
     useradd -u 1004 -g db2iadm1 -m -d /home/db2inst1 db2inst1 && \
     useradd -u 1003 -g db2fsdm1 -m -d /home/db2fenc1 db2fenc1 && \
-    useradd -u 1002 -g dasadm1 -m -d /home/dasusr1 dasusr1
+    useradd -u 1002 -g dasadm1 -m -d /home/dasusr1 dasusr1 
+    # echo -e "Passw0rd\nPassw0rd\n" | passwd db2inst1 && \   
+    # echo -e "Passw0rd\nPassw0rd\n" | passwd db2fenc1 && \
+    # echo -e "Passw0rd\nPassw0rd\n" | passwd dasusr1 
 
 # Part C # Environment variables are needed by the base DB2 image 
 # Specify a password for use db2inst1 

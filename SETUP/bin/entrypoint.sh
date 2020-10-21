@@ -20,6 +20,7 @@
 # }
 
 function cfghost {
+  ps -ef|grep db2
   mount -o remount, exec /tmp
   cat /etc/hosts
   cat /home/db2inst1/sqllib/db2nodes.cfg 
@@ -38,7 +39,7 @@ function start {
   #db2iupdt db2inst1 
   /bin/su -c "db2licm -l" - db2inst1
   /bin/su -c "db2level" - db2inst1
-  /bin/su -c "db2sampl" - db2inst1
+  #/bin/su -c "db2sampl" - db2inst1
   trap stop SIGTERM
   # echo "Attempting to stop any DB2 instances"
   # /bin/su -c "db2stop force" - db2inst1
@@ -65,8 +66,7 @@ function run {
   /bin/su -c "$*" - db2inst1
 }
 
+/sbin/init & 
+
 cfghost
-
 "$@"
-
-exec " /sbin/init & "
