@@ -35,7 +35,7 @@ function cfghost {
 # }
 
 function start {
-  db2iupdt db2inst1 
+  #db2iupdt db2inst1 
   /bin/su -c "db2licm -l" - db2inst1
   /bin/su -c "db2level" - db2inst1
   /bin/su -c "db2sampl" - db2inst1
@@ -69,4 +69,4 @@ cfghost
 
 "$@"
 
-#exec " /sbin/init & "
+exec " /sbin/init & "
