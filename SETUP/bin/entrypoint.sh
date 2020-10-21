@@ -66,7 +66,5 @@ function run {
   /bin/su -c "$*" - db2inst1
 }
 
-/sbin/init & 
-
 cfghost
 "$@"
