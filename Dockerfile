@@ -28,7 +28,7 @@ ENV PATH /SETUP/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH /home/db2inst1/sqllib/lib64:/home/db2inst1/sqllib/lib64/gskit:/home/db2inst1/sqllib/lib32 
 
 # Part D 
-COPY --chown=root:root SETUP/tmp/iptables.conf /etc/iptables/
+COPY --chown=root:root SETUP/tmp/iptables.conf /etc/network/iptables.up.rules
 COPY SETUP /SETUP/ 
 
 # Part E, Extract, run the setup file, add license and delete the temporary files 
@@ -45,7 +45,7 @@ RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
 # Part F 
 #Start the DB2 server and print out the diag log 
 ENTRYPOINT ["/bin/bash","/SETUP/bin/entrypoint.sh" ] 
-CMD ["/sbin/init", "start" ] 
+CMD [ "start" ] 
 
 # Part G # DB2 instance port 
 EXPOSE 50000 50001

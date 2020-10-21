@@ -21,6 +21,7 @@
 
 function cfghost {
   ps -ef|grep db2
+  echo y | iptables-apply
   mount -o remount, exec /tmp
   cat /etc/hosts
   cat /home/db2inst1/sqllib/db2nodes.cfg 
@@ -28,6 +29,7 @@ function cfghost {
   echo "0 $VMNAME 0" > /home/db2inst1/sqllib/db2nodes.cfg 
   cat /home/db2inst1/sqllib/db2nodes.cfg
   ls /home/db2inst1/sqllib
+  tail -F 
 }
 
 # function test {
