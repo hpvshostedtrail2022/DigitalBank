@@ -28,7 +28,8 @@ ENV PATH /SETUP/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH /home/db2inst1/sqllib/lib64:/home/db2inst1/sqllib/lib64/gskit:/home/db2inst1/sqllib/lib32 
 
 # Part D 
-COPY --chown=root:root SETUP/tmp/iptables.conf /etc/network/iptables.up.rules
+COPY --chown=root:root SETUP/tmp/iptables.conf /etc/iptables/
+#COPY --chown=root:root SETUP/tmp/iptables.conf /etc/network/iptables.up.rules
 COPY SETUP /SETUP/ 
 
 # Part E, Extract, run the setup file, add license and delete the temporary files 
@@ -39,7 +40,7 @@ RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
     #/bin/su -c "db2licm -a /SETUP/tmp/DB2INSTALLER/server_dec/db2/license/db2ese_t.lic" - db2inst1 && \
     #/bin/su -c "db2licm -a /SETUP/tmp/DB2INSTALLER/server_dec/db2/license/db2dec.lic" - db2inst1 && \
     chmod +x /SETUP/bin/* && \
-    rm -r /SETUP/tmp
+    #rm -r /SETUP/tmp
 
 
 # Part F 

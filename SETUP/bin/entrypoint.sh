@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 # if [ -z "$DB2INST1_PASSWORD" ]; then
 #   echo ""
@@ -20,9 +20,9 @@
 # }
 
 function cfghost {
-  ps -ef|grep db2
-  iptables -L
-  echo y | iptables-apply
+  ps -ef
+  #iptables -L
+  #echo y | iptables-apply
   mount -o remount, exec /tmp
   cat /etc/hosts
   cat /home/db2inst1/sqllib/db2nodes.cfg 
@@ -30,7 +30,7 @@ function cfghost {
   echo "0 $VMNAME 0" > /home/db2inst1/sqllib/db2nodes.cfg 
   cat /home/db2inst1/sqllib/db2nodes.cfg
   ls /home/db2inst1/sqllib
-  tail -F 
+  tail -F /tmp/db2setup.log &
 }
 
 # function test {
@@ -39,7 +39,7 @@ function cfghost {
 # }
 
 function start {
-  /bin/su -c "db2licm -l" - db2inst1
+  #/bin/su -c "db2licm -l" - db2inst1
   /bin/su -c "db2level" - db2inst1
   # /bin/su -c "db2sampl" - db2inst1
   # trap stop SIGTERM
@@ -49,7 +49,7 @@ function start {
   # /bin/su -c "ipclean" - db2inst1
   echo "Try to update instance"
   /opt/ibm/db2/V11.5/instance/db2iupdt db2inst1 
-  /opt/ibm/db2/V11.5/instance/db2iupdt -e 
+  #/opt/ibm/db2/V11.5/instance/db2iupdt -e 
   echo "Attempting to start DB2 instance"
   /bin/su -c "db2start" - db2inst1
   echo DB2 started on `date`
