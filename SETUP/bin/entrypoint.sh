@@ -21,6 +21,7 @@
 
 function cfghost {
   ps -ef|grep db2
+  iptables -L
   echo y | iptables-apply
   mount -o remount, exec /tmp
   cat /etc/hosts
@@ -38,15 +39,17 @@ function cfghost {
 # }
 
 function start {
-  #db2iupdt db2inst1 
   /bin/su -c "db2licm -l" - db2inst1
   /bin/su -c "db2level" - db2inst1
-  #/bin/su -c "db2sampl" - db2inst1
-  trap stop SIGTERM
+  # /bin/su -c "db2sampl" - db2inst1
+  # trap stop SIGTERM
   # echo "Attempting to stop any DB2 instances"
   # /bin/su -c "db2stop force" - db2inst1
   # echo "Attempting to clean up IP resources"
   # /bin/su -c "ipclean" - db2inst1
+  echo "Try to update instance"
+  /opt/ibm/db2/V11.5/instance/db2iupdt db2inst1 
+  /opt/ibm/db2/V11.5/instance/db2iupdt -e 
   echo "Attempting to start DB2 instance"
   /bin/su -c "db2start" - db2inst1
   echo DB2 started on `date`
@@ -69,4 +72,5 @@ function run {
 }
 
 cfghost
+
 "$@"
