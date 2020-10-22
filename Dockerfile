@@ -39,10 +39,8 @@ RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
     /SETUP/tmp/DB2INSTALLER/server_dec/db2setup -r /SETUP/tmp/db2server.rsp && \
     #/bin/su -c "db2licm -a /SETUP/tmp/DB2INSTALLER/server_dec/db2/license/db2ese_t.lic" - db2inst1 && \
     #/bin/su -c "db2licm -a /SETUP/tmp/DB2INSTALLER/server_dec/db2/license/db2dec.lic" - db2inst1 && \
-    chmod +x /SETUP/bin/* && \
-    #rm -r /SETUP/tmp
-
-
+    chmod +x /SETUP/bin/* 
+    
 # Part F 
 #Start the DB2 server and print out the diag log 
 ENTRYPOINT ["/bin/bash","/SETUP/bin/entrypoint.sh" ] 
