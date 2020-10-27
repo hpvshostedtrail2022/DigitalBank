@@ -36,10 +36,11 @@ COPY SETUP /SETUP/
 RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
     curl -o /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz http://9.46.66.119:10010/DB2S_11.5.4_LSZML.tar.gz && \
     tar -xzf /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz -C /SETUP/tmp/DB2INSTALLER/ && \
-    /SETUP/tmp/DB2INSTALLER/server_dec/db2setup -r /SETUP/tmp/db2server.rsp && \
+    #/SETUP/tmp/DB2INSTALLER/server_dec/db2setup -r /SETUP/tmp/db2server.rsp && \
     #/bin/su -c "db2licm -a /SETUP/tmp/DB2INSTALLER/server_dec/db2/license/db2ese_t.lic" - db2inst1 && \
     #/bin/su -c "db2licm -a /SETUP/tmp/DB2INSTALLER/server_dec/db2/license/db2dec.lic" - db2inst1 && \
-    chmod +x /SETUP/bin/* 
+    chmod +x /SETUP/bin/* && \
+    rm -rf /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz
 
 # Part F 
 #Start the DB2 server and print out the diag log 

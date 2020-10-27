@@ -39,6 +39,7 @@ function cfghost {
 # }
 
 function start {
+  /SETUP/tmp/DB2INSTALLER/server_dec/db2setup -r /SETUP/tmp/db2server.rsp
   #/bin/su -c "db2licm -l" - db2inst1
   /bin/su -c "db2level" - db2inst1
   # /bin/su -c "db2sampl" - db2inst1
