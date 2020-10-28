@@ -51,7 +51,7 @@ function start {
   echo "Attempting to start DB2 instance"
   /bin/su -c "db2start" - db2inst1
   echo DB2 started on `date`
-  tail -F /home/db2inst1/sqllib/db2dump/db2diag.log &
+  tail -F /home/db2inst1/sqllib/db2dump/DIAG0000/db2diag.log &
   LOG_PID=$!
   wait $LOG_PID
 }
