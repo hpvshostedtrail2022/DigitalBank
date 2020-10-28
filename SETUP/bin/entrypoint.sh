@@ -26,7 +26,6 @@ function cfghost {
   VMNAME=$(cat /etc/hosts | tail -n 1 | awk '{print $2}')
   echo "0 $VMNAME 0" > /home/db2inst1/sqllib/db2nodes.cfg 
   cat /home/db2inst1/sqllib/db2nodes.cfg
-  ls /home/db2inst1/sqllib
   tail -F /tmp/db2setup.log &
 }
 
@@ -51,6 +50,7 @@ function start {
   echo "Attempting to start DB2 instance"
   /bin/su -c "db2start" - db2inst1
   echo DB2 started on `date`
+  ls -l /home/db2inst1
   tail -F /home/db2inst1/sqllib/db2dump/DIAG0000/db2diag.log &
   LOG_PID=$!
   wait $LOG_PID
