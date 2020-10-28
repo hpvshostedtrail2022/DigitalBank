@@ -29,7 +29,7 @@
 ** "Response file considerations" in the DB2 Information Center.
 **
 ** Refer to the DB2 Information Center at:
-** https://www-01.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.kc.doc/welcome.html
+** https://www-01.ibm.com/support/knowledgecenter/SSEPGG_11.5.4/com.ibm.db2.luw.kc.doc/welcome.html
 **
 ** ============================================================================
 ** General Options
@@ -57,7 +57,7 @@ LIC_AGREEMENT             = ACCEPT         ** ACCEPT or DECLINE
 ** If an interactive type is set, db2setup will prompt for CD locations and
 ** give feedback as to progress, otherwise nothing will be displayed until the
 ** installation is complete.
-*INTERACTIVE              = YES            ** NONE, YES, MACHINE
+*INTERACTIVE              = NONE            ** NONE, YES, MACHINE
 
 ** The CONFIG_ONLY keyword is used to specify that the response file is being
 ** used for creating or configuring an instance, and nothing is to be
@@ -131,6 +131,13 @@ INSTALL_TYPE              = TYPICAL         ** TYPICAL, COMPACT, CUSTOM
 ** developing applications that work with DB2.
 *COMP                     = APPLICATION_DEVELOPMENT_TOOLS       ** Base application development tools
 
+** A scalable, highly-available, high performance file system optimized for
+** multi-petabyte storage management.
+** If this component is selected, it will either be installed, updated or
+** upgraded by the DB2 installer.  Use COMP=GPFS only if you are running as
+** root user.
+*COMP                     = GPFS                                ** General Parallel File System (GPFS)
+
 ** Application data sources use an application to access the underlying
 ** nonrelational data.	The raw data can be in a number of standard and
 ** nonstandard formats.
@@ -163,6 +170,15 @@ INSTALL_TYPE              = TYPICAL         ** TYPICAL, COMPACT, CUSTOM
 ** Enables users and applications to submit distributed requests for data
 ** managed by Oracle systems.
 *COMP                     = ORACLE_DATA_SOURCE_SUPPORT          ** Oracle data source support
+
+** The IBM DB2 pureScale Feature provides clustering technology to DB2 products
+** on distributed platforms.
+** Selecting the PURESCALE feature will automatically install every other
+** required component. See the DB2 Information Center for more information on
+** the pre-installation planning and prerequisites needed for a successful IBM
+** DB2 pureScale installation and instance setup. Use COMP=PURESCALE only if
+** you are running as root user.
+*COMP                     = PURESCALE                           ** IBM DB2 pureScale Feature
 
 ** Spatial Extender client contains the support required for communicating with
 ** a Spatial Extender server.
@@ -214,6 +230,41 @@ INSTALL_TYPE              = TYPICAL         ** TYPICAL, COMPACT, CUSTOM
 ** separately following this upgrade.
 *UPGRADE_PRIOR_VERSIONS   = FALSE           ** TRUE or FALSE
 
+** IBM DB2 pureScale Feature Host Information
+** ------------------------------------------
+** Specify the hosts to which the DB2 product is to be installed. This section
+** must always list the installation initiating host. Do no specify any
+** keywords in this section if you are not installing the IBM DB2 pureScale
+** Feature. Ensure that password-less ssh root access is available on all hosts
+** and between all hosts.
+
+** The HOST keyword is used to specify a host identifier for one set of host
+** keys. This keyword is mandatory if you are installing the IBM DB2 pureScale
+** Feature.
+*HOST                     = host1           ** char(14)  no spaces
+
+** Use the HOSTNAME keyword with the host identifier prefix to identify the
+** name of the host. A host can be a physical machine or LPAR, on which a DB2
+** member or a cluster caching facility will run. If an alias or IP address is
+** provided, the installer will attempt to convert it to a canonical hostname
+** prior to instance creation. The host name must be a unique host name across
+** the network. The following formats are accepted: long name (for example,
+** host1.ibm.com), short name (for example, host1), IP address (IPv4:
+** xxx.xxx.xxx.xxx). This keyword is mandatory if you have specified the HOST
+** keyword.
+*host1.HOSTNAME           =                 ** char(255)  no spaces
+
+** The CLUSTER_INTERCONNECT_NETNAME keyword is used to specify the name of a
+** high speed interconnect name that corresponds to a high speed adapter name.
+** Refer to the DB2 Information Center for valid types of high speed adapters.
+** This keyword is mandatory if you have specified the HOST keyword.
+*host1.CLUSTER_INTERCONNECT_NETNAME =       ** char(255)  no spaces
+
+
+*HOST                     = host2           ** char(14)  no spaces
+*host2.HOSTNAME           =                 ** char(255)  no spaces
+*host2.CLUSTER_INTERCONNECT_NETNAME =       ** char(255)  no spaces
+
 ** Instance Creation Settings
 ** --------------------------
 ** User IDs managed by NIS/NIS+ are not supported. If an existing user ID is
@@ -222,7 +273,11 @@ INSTALL_TYPE              = TYPICAL         ** TYPICAL, COMPACT, CUSTOM
 ** Prefix name of one instance set. To create or update an instance, one set of
 ** instance keywords must be specified. The instance set is comprised of the
 ** identifying prefix value for the INSTANCE key followed by the keys that are
-** prefixed by the specified INSTANCE prefix value.
+** prefixed by the specified INSTANCE prefix value. If you are creating a DSF
+** instance you can only specify one instance at a time in this response file.
+** Note: DSF is the instance type for a IBM DB2 pureScale instance. If you are
+** not creating a DSF instance, then multiple instances can be specified for
+** creation or update in this response file.
 INSTANCE                  = DB2_INST        ** char(8)  no spaces
 
 ** Real name of the instance, and also the user ID of instance owner. It can be
@@ -238,17 +293,21 @@ DB2_INST.NAME             = db2inst1        ** char(8)  no spaces, no upper case
 ** The UID will be generated if the keyword is not specified - highly
 ** recommended.
 *DB2_INST.UID             =                 ** Unsigned integer
-*DB2_INST.GROUP_NAME       = db2iadm1        ** char(30) no spaces
+DB2_INST.GROUP_NAME       = db2iadm1        ** char(30) no spaces
 
 ** Use a generated GID if no value provided - highly recommended.
 *DB2_INST.GID             =                 ** Unsigned integer
-*DB2_INST.HOME_DIRECTORY   =                 ** char(64) no spaces. Valid for root installation only
-*DB2_INST.PASSWORD         = Replace with your password ** Valid for root installation only
-*DB2_INST.TYPE            = ESE             ** ESE WSE STANDALONE CLIENT
+DB2_INST.HOME_DIRECTORY   =                 ** char(64) no spaces. Valid for root installation only
+DB2_INST.PASSWORD         = Replace with your password ** Valid for root installation only
+
+** If PURESCALE is selected or installed, the default instance type will be
+** DSF.
+*DB2_INST.TYPE            = ESE             ** DSF ESE WSE STANDALONE CLIENT
 
 ** Set the instance to be auto-started after system reboot. The AUTOSTART
-** keyword can only be used by a root installation. This keyword is invalid for
-** non-root installation.
+** keyword can only be used by a root installation and only a non-pureScale
+** instance type. This keyword is invalid for non-root installation. This
+** keyword cannot be used for DSF instance type.
 DB2_INST.AUTOSTART        = YES             ** YES or NO
 
 ** The START_DURING_INSTALL keyword will start the instance during the
@@ -259,12 +318,55 @@ DB2_INST.START_DURING_INSTALL = YES         ** YES or NO. Default is YES.
 *DB2_INST.PORT_NUMBER     = 50000           ** 1024 - 65535, Reserved for root installation only
 
 ** The ports in range [FCM_PORT_NUMBER, FCM_PORT_NUMBER+MAX_LOGICAL_NODES] are
-** reserved during the installation. Valid for root installation only. The
-** ports have to be continuous and identical on all the participating hosts.
+** reserved during the installation. Valid for root installation only. If your
+** instance type is DSF, the ports in range [FCM_PORT_NUMBER,
+** FCM_PORTNUMBER+MAX_LOGICAL_NODES+3] is reserved. The ports have to be
+** continuous and identical on all the participating hosts.
 *DB2_INST.FCM_PORT_NUMBER = 60000           ** 1024 - 65535, the beginning port number.
+*DB2_INST.MAX_LOGICAL_NODES =               ** 1 - 128 for DSF instances or 1 - 199 for ESE instances. It is a maximum number of logical members to be used on one member host. Valid for root installation only.
+
+** The DB2CF_PORT_NUMBER and the DB2CF_MGMT_PORT_NUMBER are to be reserved for
+** the cluster caching facility (CF). As the CF is an instance designation, the
+** port names will be pre-defined based on the name of the instance. Example:
+** Where the instance name is db2sdin1, the names required for the CF ports
+** will be DB2CF_db2inst1 and DB2CF_db2inst1_MGMT. Ensure that all the port
+** names are the same on all the participating hosts. The two CF ports must be
+** available on all the participating hosts. If you want the installer to
+** generate these values, leave them commented out.
+*DB2_INST.DB2CF_PORT_NUMBER = 56001         ** 1024 - 65535.
+*DB2_INST.DB2CF_MGMT_PORT_NUMBER = 56000    ** 1024 - 65535.
+
+** The PREFERRED_PRIMARY_CF is used to specify the preferred primary cluster
+** caching facility needed to create a new IBM DB2 pureScale instance. This
+** keyword is mandatory if you are creating a new IBM DB2 pureScale instance.
+** The value provided must match the value of any HOST keyword specified in
+** this response file. If you are extending an instance, this keyword should be
+** commented out.
+*DB2_INST.PREFERRED_PRIMARY_CF =            ** a host identifier, char(14)
+
+** The PREFERRED_SECONDARY_CF is used to specify the preferred secondary
+** cluster caching facility for the IBM DB2 pureScale instance. The value
+** provided must match the value of any HOST keyword specified in this response
+** file. This host identifier should be specified in any HOST section.
+*DB2_INST.PREFERRED_SECONDARY_CF =          ** a host identifier, char(14)
+
+** The MEMBER keyword is required if you are creating a new IBM DB2 pureScale
+** instance. The value provided must match the value of any HOST keyword
+** specified in this response file. Specify more MEMBER keywords so that each
+** new host is defined in this response file as either a DB2 member or a
+** cluster caching facility (CF host, see above).
+*DB2_INST.MEMBER          =                 ** a host identifier, char(14)
 *DB2_INST.CLIENT_IMPORT_PROFILE =           ** a full path or a file in the same directory as the response file
+
+** Do not set FEDERATED if you are creating or configuring a DSF instance.
 *DB2_INST.FEDERATED       =                 ** YES or NO
+
+** Do not set INFORMIX_CLIENT_HOME if you are creating or configuring a DSF
+** instance.
 *DB2_INST.INFORMIX_CLIENT_HOME = BLANK      ** BLANK, char(1023)
+
+** Do not set INFORMIX_SERVER_HOME if you are creating or configuring a DSF
+** instance.
 *DB2_INST.INFORMIX_SERVER_HOME = BLANK      ** BLANK, char(1023)
 *DB2_INST.ORACLE_HOME     =                 ** any valid path , char(64) no spaces
 *DB2_INST.SQLSERVER_ODBC_LIB_PATH =         ** the full path name where libodbc file is in, char(1023)
@@ -272,6 +374,46 @@ DB2_INST.START_DURING_INSTALL = YES         ** YES or NO. Default is YES.
 *DB2_INST.TERADATA_CLI_PATH =               ** the full path name to libcliv2.so library
 *DB2_INST.TERADATA_ERRMSG_PATH =            ** the full path name to errmsg.txt error message file
 *DB2_INST.AUTHENTICATION  = SERVER          ** CLIENT, SERVER, or SERVER_ENCRYPT
+
+** An existing user ID should be specified for DB2SSHID_USERNAME keyword, make
+** sure the user ID exists on all the participating hosts with the same UID,
+** GID, corresponding group name, user name and user home directory. Ensure
+** that existing user IDs are not locked and that the password has not expired.
+** IBM DB2 pureScale Feature users must specify a name that is unique across
+** the IBM DB2 pureScale implementation.
+*DB2_INST.DB2SSHID_USERNAME =               ** char(8)  no spaces, no upper case letters
+
+** Tivoli SA MP Tiebreaker Settings (IBM DB2 pureScale Feature only)
+** -----------------------------------------------------------------
+** The DB2_CLUSTER_SERVICES_TIEBREAKER_DEVICE_PATH keyword is used to specify
+** the device path for Tivoli SA MP Tiebreaker setup. The keyword is mandatory
+** when setting up the first IBM DB2 pureScale instance.
+
+** All the hosts specified in HOST section must have direct access to this
+** disk.
+*DB2_CLUSTER_SERVICES_TIEBREAKER_DEVICE_PATH =  ** a valid device path, for example, /dev/sda
+
+** Shared File System Settings (IBM DB2 pureScale Feature only)
+** ------------------------------------------------------------
+** Only one of the following two keywords is needed when setting up the first
+** IBM DB2 pureScale instance on the host; If both INSTANCE_SHARED_DEVICE_PATH
+** and INSTANCE_SHARED_DIR are specified, INSTANCE_SHARED_DIR will be ignored.
+** If the task is to extend an instance to a new host, both of these keywords
+** will be ignored.
+
+** Specify INSTANCE_SHARED_DEVICE_PATH to create a DB2 cluster file system. All
+** the hosts specified in the HOST sections should have direct access to the
+** shared device path specified.
+*INSTANCE_SHARED_DEVICE_PATH =              ** a valid device path, for example, /dev/sda
+
+** Specify the INSTANCE_SHARED_MOUNT to define the mounting point of the new
+** DB2 cluster file system. It is optional and valid only if
+** INSTANCE_SHARED_DEVICE_PATH is specified.
+*INSTANCE_SHARED_MOUNT    =                 ** a valid mount point of the new DB2 cluster file system.
+
+** Specify the INSTANCE_SHARED_DIR to use a user-managed shared file system for
+** instance creation.
+*INSTANCE_SHARED_DIR      =                 ** a valid mount point of shared file system.
 
 ** Fenced User Creation Settings
 ** -----------------------------
@@ -281,12 +423,12 @@ DB2_INST.START_DURING_INSTALL = YES         ** YES or NO. Default is YES.
 
 ** Make sure the user name specified for FENCED_USERNAME is not locked and its
 ** password has not expired.
-DB2_INST.FENCED_USERNAME  = db2fenc1        ** char(8)  no spaces, no upper case letters
+DB2_INST.FENCED_USERNAME  = db2sdfe1        ** char(8)  no spaces, no upper case letters
 
 ** If no value is provided for FENCED_UID keyword, the DB2 installer will
 ** generate one for you. This is highly recommended.
 *DB2_INST.FENCED_UID      =                 ** Unsigned integer
-*DB2_INST.FENCED_GROUP_NAME = db2fsdm1       ** char(30)  no spaces
+DB2_INST.FENCED_GROUP_NAME = db2fsdm1       ** char(30)  no spaces
 
 ** If no value is provided for FENCED_GID keyword, the DB2 installer will
 ** generate one for you. This is highly recommended.
@@ -298,12 +440,27 @@ DB2_INST.FENCED_USERNAME  = db2fenc1        ** char(8)  no spaces, no upper case
 
 ** Text Search Configuration
 ** -------------------------
+
+** Do not set CONFIGURE_TEXT_SEARCH if you are creating or configuring a DSF
+** instance.
 *DB2_INST.CONFIGURE_TEXT_SEARCH = NO        ** YES or NO
+
+** Do not set TEXT_SEARCH_HTTP_SERVICE_NAME if you are creating or configuring
+** a DSF instance.
 *DB2_INST.TEXT_SEARCH_HTTP_SERVICE_NAME = db2j_db2inst1 ** BLANK or char(14). Valid for root installation only
+
+** Do not set TEXT_SEARCH_HTTP_PORT_NUMBER if you are creating or configuring a
+** DSF instance.
 *DB2_INST.TEXT_SEARCH_HTTP_PORT_NUMBER = 55000 ** Any unused port number from 1024 - 65535
 
 ** Instance DBM CFG Settings
 ** -------------------------
+*DB2_INST.CF_DIAGLEVEL    = 2               ** a number in range [0 - 4]
+*DB2_INST.CF_DIAGPATH     =                 ** BLANK or char(215)
+*DB2_INST.CF_MEM_SZ       = AUTOMATIC       ** AUTOMATIC or a number in range [32768 - 4 294 967 295]
+*DB2_INST.CF_NUM_CONNS    = AUTOMATIC       ** AUTOMATIC or a number in range [4-256]
+*DB2_INST.CF_NUM_WORKERS  = AUTOMATIC       ** AUTOMATIC or a number in range [1 - 31]
+*DB2_INST.RSTRT_LIGHT_MEM = AUTOMATIC       ** 1-10 for AUTOMATIC or a number in range [1 - 50]
 *DB2_INST.AGENTPRI        =                 ** SYSTEM, -1 or 41-128
 *DB2_INST.ASLHEAPSZ       =                 ** 1 - 524288
 *DB2_INST.AUDIT_BUF_SZ    =                 ** 0 - 65000
@@ -357,7 +514,7 @@ DB2_INST.FENCED_USERNAME  = db2fenc1        ** char(8)  no spaces, no upper case
 *DB2_INST.MAXTOTFILOP     =                 ** 100 - 32768
 *DB2_INST.MAX_CONNRETRIES =                 ** 0 - 100
 *DB2_INST.MAX_COORDAGENTS = 200 or AUTOMATIC ** 200, AUTOMATIC, -1 or 0 - 64000, -1 translates into a value of 200
-*DB2_INST.MAX_TIME_DIFF   =                 ** 1-1440. The unit of measurement is second
+*DB2_INST.MAX_TIME_DIFF   = 300             ** 1-1440. The unit of measurement is second
 *DB2_INST.MAX_QUERYDEGREE =                 ** ANY, -1 or 1 - 32767
 *DB2_INST.MON_HEAP_SZ     = AUTOMATIC       ** AUTOMATIC or 0 - 60000
 *DB2_INST.NUMDB           =                 ** 1 - 256
@@ -759,4 +916,3 @@ DB2_INST.FENCED_USERNAME  = db2fenc1        ** char(8)  no spaces, no upper case
 ** The Global Secure ToolKit will be automatically installed for you. If you
 ** don't want to install it, set the value to NO.
 *INSTALL_ENCRYPTION       = YES             ** YES or NO.Valid for root installation only.
-

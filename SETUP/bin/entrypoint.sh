@@ -20,9 +20,6 @@
 # }
 
 function cfghost {
-  ps -ef
-  #iptables -L
-  #echo y | iptables-apply
   mount -o remount, exec /tmp
   cat /etc/hosts
   cat /home/db2inst1/sqllib/db2nodes.cfg 

@@ -12,10 +12,10 @@ RUN apt-get update && \
     libstdc++6 && \
     groupadd -g 666 db2iadm1 && \
     groupadd -g 667 db2fsdm1 && \
-    groupadd -g 668 dasadm1 && \
+    #groupadd -g 668 dasadm1 && \
     useradd -u 1004 -g db2iadm1 -m -d /home/db2inst1 db2inst1 && \
-    useradd -u 1003 -g db2fsdm1 -m -d /home/db2fenc1 db2fenc1 && \
-    useradd -u 1002 -g dasadm1 -m -d /home/dasusr1 dasusr1 
+    useradd -u 1003 -g db2fsdm1 -m -d /home/db2sdfe1 db2sdfe1 
+    #useradd -u 1002 -g dasadm1 -m -d /home/dasusr1 dasusr1 
     # echo -e "Passw0rd\nPassw0rd\n" | passwd db2inst1 && \   
     # echo -e "Passw0rd\nPassw0rd\n" | passwd db2fenc1 && \
     # echo -e "Passw0rd\nPassw0rd\n" | passwd dasusr1 
@@ -24,8 +24,8 @@ RUN apt-get update && \
 # Specify a password for use db2inst1 
 
 #ENV DB2INST1_PASSWORD passw0rd 
-ENV PATH /SETUP/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
-ENV LD_LIBRARY_PATH /home/db2inst1/sqllib/lib64:/home/db2inst1/sqllib/lib64/gskit:/home/db2inst1/sqllib/lib32 
+#ENV PATH /SETUP/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
+#ENV LD_LIBRARY_PATH /home/db2inst1/sqllib/lib64:/home/db2inst1/sqllib/lib64/gskit:/home/db2inst1/sqllib/lib32 
 
 # Part D 
 COPY --chown=root:root SETUP/tmp/iptables.conf /etc/iptables/
@@ -44,9 +44,9 @@ RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
 
 # Part F 
 #Start the DB2 server and print out the diag log 
-# ENTRYPOINT ["/bin/bash","/SETUP/bin/entrypoint.sh" ] 
-# CMD [ "start" ] 
-ENTRYPOINT [ "/sbin/init" ]
+ENTRYPOINT ["/bin/bash","/SETUP/bin/entrypoint.sh" ] 
+CMD [ "start" ] 
+#ENTRYPOINT [ "/sbin/init" ]
 
 # Part G # DB2 instance port 
 EXPOSE 50000 50001
