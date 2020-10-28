@@ -1,0 +1,8 @@
+## Part A: Define the base operating system
+FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
+
+COPY --chown=root:root SETUP/tmp/iptables.conf /etc/iptables/
+ENTRYPOINT [ "/sbin/init" ]
+
+# Part G # DB2 instance port 
+EXPOSE 50000 50001
