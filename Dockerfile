@@ -1,52 +1,12 @@
-## Part A: Define the base operating system
 FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
 
-## Part B Setup the environment with Libraries and set permissions to directories and 
-## Adding dbadmin user and wcs user
-RUN apt-get update && \
-    apt-get install -y \
-    curl \
-    libaio1 \
-    binutils \
-    gcc \
-    libstdc++6 && \
-    groupadd -g 666 db2iadm1 && \
-    groupadd -g 667 db2fsdm1 && \
-    #groupadd -g 668 dasadm1 && \
-    useradd -u 1004 -g db2iadm1 -m -d /home/db2inst1 db2inst1 && \
-    useradd -u 1003 -g db2fsdm1 -m -d /home/db2sdfe1 db2sdfe1 
-    #useradd -u 1002 -g dasadm1 -m -d /home/dasusr1 dasusr1 
-    # echo -e "Passw0rd\nPassw0rd\n" | passwd db2inst1 && \   
-    # echo -e "Passw0rd\nPassw0rd\n" | passwd db2fenc1 && \
-    # echo -e "Passw0rd\nPassw0rd\n" | passwd dasusr1 
-
-# Part C # Environment variables are needed by the base DB2 image 
-# Specify a password for use db2inst1 
-
-#ENV DB2INST1_PASSWORD passw0rd 
-#ENV PATH /SETUP/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
-#ENV LD_LIBRARY_PATH /home/db2inst1/sqllib/lib64:/home/db2inst1/sqllib/lib64/gskit:/home/db2inst1/sqllib/lib32 
-
-# Part D 
-COPY --chown=root:root SETUP/tmp/iptables.conf /etc/iptables/
-#COPY --chown=root:root SETUP/tmp/iptables.conf /etc/network/iptables.up.rules
-COPY SETUP /SETUP/ 
-
-# Part E, Extract, run the setup file, add license and delete the temporary files 
-RUN mkdir -p /SETUP/tmp/DB2INSTALLER && \
-    curl -o /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz http://9.46.66.119:10010/DB2S_11.5.4_LSZML.tar.gz && \
-    tar -xzf /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz -C /SETUP/tmp/DB2INSTALLER/ && \
-    #/SETUP/tmp/DB2INSTALLER/server_dec/db2setup -r /SETUP/tmp/db2server.rsp && \
-    #/bin/su -c "db2licm -a /SETUP/tmp/DB2INSTALLER/server_dec/db2/license/db2ese_t.lic" - db2inst1 && \
-    #/bin/su -c "db2licm -a /SETUP/tmp/DB2INSTALLER/server_dec/db2/license/db2dec.lic" - db2inst1 && \
-    chmod +x /SETUP/bin/* && \
-    rm -rf /SETUP/tmp/DB2INSTALLER/DB2INSTALLER.tar.gz
-
-# Part F 
-#Start the DB2 server and print out the diag log 
-ENTRYPOINT ["/bin/bash","/SETUP/bin/entrypoint.sh" ] 
-CMD [ "start" ] 
-#ENTRYPOINT [ "/sbin/init" ]
-
-# Part G # DB2 instance port 
-EXPOSE 50000 50001
+RUN apt-get install -y gnupg && \ 
+    wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - && \
+    mkdir -p /etc/apt/sources.list.d && \
+    #touch /etc/apt/sources.list.d/mongodb-org-3.4.list && \
+    echo "deb [ arch=s390x,s390x ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list && \    
+    apt-get update && \
+    apt-get install -y mongodb-org 
+   
+ENTRYPOINT ["systemctl start mongod"]
+ 
