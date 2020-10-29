@@ -19,5 +19,5 @@ RUN apt-get install -y \
     mongodb-org && \
     rm -f /usr/local/bin/systemctl
    
-ENTRYPOINT ["systemctl start mongod"]
+ENTRYPOINT ["mongod"]
  
