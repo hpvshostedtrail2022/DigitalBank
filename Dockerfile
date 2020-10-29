@@ -1,5 +1,7 @@
 FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
 
+COPY --chown=root:root SETUP/tmp/iptables.conf /etc/iptables/
+
 RUN apt-get install -y gnupg && \ 
     wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - && \
     mkdir -p /etc/apt/sources.list.d && \
