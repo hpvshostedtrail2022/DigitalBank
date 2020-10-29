@@ -10,7 +10,14 @@ RUN apt-get install -y \
     #touch /etc/apt/sources.list.d/mongodb-org-3.4.list && \
     echo "deb [ arch=s390x,s390x ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list && \    
     apt-get update && \
-    apt-get install -y mongodb-org 
+    ln -s /bin/true /usr/local/bin/systemctl && \
+    apt-get install -y -q \
+    mongodb-org-server \
+    mongodb-org-shell \
+    mongodb-org-mongos \
+    mongodb-org-tools \
+    mongodb-org && \
+    rm -f /usr/local/bin/systemctl
    
 ENTRYPOINT ["systemctl start mongod"]
  

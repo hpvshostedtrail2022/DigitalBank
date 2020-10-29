@@ -1,4 +1,6 @@
-FROM ubuntu:bionic
+#FROM ubuntu:bionic
+FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
+
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r mongodb && useradd -r -g mongodb mongodb
