@@ -22,7 +22,9 @@ RUN apt-get update && \
     /usr/local/bin/systemctl enable mongod && \
     #chmod +x /root/start.sh && \
     rm -f /usr/local/bin/systemctl
-   
+
+COPY config/mongod.conf /etc/mongod.conf
+
 ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
 #ENTRYPOINT ["/root/start.sh"] 
 #ENTRYPOINT ["/sbin/init"]
