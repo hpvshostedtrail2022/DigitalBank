@@ -1,6 +1,7 @@
 FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
 
 COPY --chown=root:root config/iptables.conf /etc/iptables/
+COPY start.sh /root/start.sh
 
 RUN apt-get update && \
     apt-get install -y \
@@ -17,8 +18,9 @@ RUN apt-get update && \
     mongodb-org-shell \
     mongodb-org-mongos \
     mongodb-org-tools \
-    mongodb-org && \
+    mongodb-org && \i
+    chmod +x /root/start.sh && \
     rm -f /usr/local/bin/systemctl
    
-ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
- 
+#ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
+ENTRYPOINT ["/root/start.sh"] 
