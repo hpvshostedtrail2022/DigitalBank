@@ -25,7 +25,7 @@ RUN apt-get update && \
 
 COPY config/mongod.conf /etc/mongod.conf
 
-ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
-#ENTRYPOINT ["/root/start.sh"] 
+#ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
+ENTRYPOINT ["/root/start.sh"] 
 #ENTRYPOINT ["/sbin/init"]
 #CMD ["/bin/bash"]

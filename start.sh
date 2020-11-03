@@ -15,14 +15,15 @@ echo "========== service status =========="
 /etc/init.d/ssh status
 
 
-rm -r /etc/ssh/ssh*key
-dpkg-reconfigure openssh-server
+#rm -r /etc/ssh/ssh*key
+#dpkg-reconfigure openssh-server
 
-echo "========== service status =========="
-/etc/init.d/ssh status
+#echo "========== service status =========="
+#/etc/init.d/ssh status
 
-ls -al /etc/ssh/ssh*key
+#ls -al /etc/ssh/ssh*key
 
 echo "start mongo db"
 /usr/bin/mongod -f /etc/mongod.conf
 
+exec /sbin/init
