@@ -23,7 +23,7 @@ RUN apt-get update && \
     #chmod +x /root/start.sh && \
     rm -f /usr/local/bin/systemctl
    
-#ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
+ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
 #ENTRYPOINT ["/root/start.sh"] 
 #ENTRYPOINT ["/sbin/init"]
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
