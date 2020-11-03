@@ -20,5 +20,5 @@ RUN apt-get update && \
     mongodb-org && \
     rm -f /usr/local/bin/systemctl
    
-ENTRYPOINT ["systemctl","start","mongod"]
+ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
  
