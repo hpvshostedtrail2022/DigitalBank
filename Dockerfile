@@ -18,7 +18,7 @@ RUN apt-get update && \
     mongodb-org-shell \
     mongodb-org-mongos \
     mongodb-org-tools \
-    mongodb-org && \i
+    mongodb-org && \
     chmod +x /root/start.sh && \
     rm -f /usr/local/bin/systemctl
    
