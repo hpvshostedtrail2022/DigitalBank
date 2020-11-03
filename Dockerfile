@@ -20,7 +20,7 @@ RUN apt-get update && \
     mongodb-org-tools \
     mongodb-org && \
     /usr/local/bin/systemctl enable mongod && \
-    #chmod +x /root/start.sh && \
+    chmod +x /root/start.sh && \
     rm -f /usr/local/bin/systemctl
 
 COPY config/mongod.conf /etc/mongod.conf
