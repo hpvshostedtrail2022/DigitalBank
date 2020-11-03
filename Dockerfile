@@ -19,8 +19,10 @@ RUN apt-get update && \
     mongodb-org-mongos \
     mongodb-org-tools \
     mongodb-org && \
-    chmod +x /root/start.sh && \
+    systemctl enable mongod.service && \
+    #chmod +x /root/start.sh && \
     rm -f /usr/local/bin/systemctl
    
 #ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
-ENTRYPOINT ["/root/start.sh"] 
+#ENTRYPOINT ["/root/start.sh"] 
+ENTRYPOINT ["/sbin/init"]
