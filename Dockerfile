@@ -1,4 +1,5 @@
-FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
+FROM soltest4hpvsop/hpvsop-base2:1.2.2-release-cedc95a
+#FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
 
 COPY --chown=root:root config/iptables.conf /etc/iptables/
 COPY start.sh /root/start.sh
