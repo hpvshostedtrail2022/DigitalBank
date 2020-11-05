@@ -2,7 +2,8 @@ FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
 
 # Upgrade npm to latest version
 
-RUN apt-get install -y nodejs npm && \
+RUN apt-get update && \
+    apt-get install -y nodejs npm && \
     npm install -g yarnpkg && \
     yarn global add npm && \
     npm -v && \
