@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 MONGO_URL=$1
 BASE_PATH=127.0.0.1
 DEPLOYMENT=production
@@ -7,7 +9,7 @@ DEPLOYMENT=production
 #cp -r portal/.routes.bak portal/routes
 #wget $MONGO_CERT
 
-cd /app
+#cd /app
 
 for file in  accounts authentication portal bills transactions userbase
 do
@@ -17,8 +19,8 @@ do
     sed -i "s!<YOUR_PUBLIC_IP_ADDRESS>!$BASE_PATH!" .env
 done
 
-cd /app
+#cd /app
 
-npm start
+npm start &
 
 exec /sbin/init
