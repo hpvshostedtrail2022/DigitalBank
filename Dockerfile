@@ -1,24 +1,31 @@
-FROM ibmcom/ibmnode:latest
-LABEL maintainer="amalamine@ae.ibm.com"
+FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
 
 # Upgrade npm to latest version
 
-RUN npm install -g yarnpkg
-RUN yarn global add npm
-RUN npm -v
-RUN npm config set unsafe-perm=true
+RUN apt-get install -y nodejs npm && \
+    npm install -g yarnpkg && \
+    yarn global add npm && \
+    npm -v && \
+    npm config set unsafe-perm=true
 
 # Copy app & set working directory
 WORKDIR /app
 COPY . /app
-RUN npm install; npm prune --production
+COPY iptables.conf /etc/iptables/
+RUN npm install; npm prune --production && \
+    chmod +x /app/entrypoint.sh && \
+    rm iptables.conf
 
 ENV NODE_ENV production
-ENV SESSION_SECRET 5a4e0d2c6198976aaff66bc8
-ENV MONGO_USERNAME mongo
-ENV MONGO_PASSWORD mongo1234
-ENV MONGO_DB admin
+ENV MONGO_URL mongodb://9.30.238.160:27017/test
+#ENV SESSION_SECRET 5a4e0d2c6198976aaff66bc8
+#ENV MONGO_USERNAME mongo
+#ENV MONGO_PASSWORD mongo1234
+#ENV MONGO_DB admin
+
 
 EXPOSE 3100 3200 3400 3600 3800 4000 4100
 
-CMD [ "npm","start" ]
+ENTRYPOINT ["/app/entrypoint.sh"]
+CMD $MONGO_URL
+#CMD [ "npm","start" ]

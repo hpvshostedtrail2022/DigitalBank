@@ -1,7 +1,6 @@
-FROM ibmcom/ibmnode:latest
-LABEL maintainer="amalamine@ae.ibm.com"
+FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
 
-#RUN apt-get install -y nodejs npm
+RUN apt-get install -y nodejs npm
 
 WORKDIR /app
 # Install app dependencies
