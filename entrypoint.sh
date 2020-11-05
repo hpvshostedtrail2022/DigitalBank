@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+#set -e
 
 MONGO_URL=$1
 BASE_PATH=127.0.0.1
@@ -23,6 +23,6 @@ done
 
 #cd /app
 
-npm start &
+npm start
 
 exec /sbin/init
