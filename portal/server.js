@@ -35,7 +35,7 @@ require('./routes/user')(app, request, config.ports);
 require('./routes/bills')(app, request, config.ports);
 require('./routes/accounts')(app, request, config.ports);
 require('./routes/transactions')(app, request, config.ports);
-require('./routes/support')(app, request, config.ports);
+#require('./routes/support')(app, request, config.ports);
 
 var port = 3100;
 
