@@ -17,6 +17,7 @@ do
     cp .env.example .env
     sed -i "s!<YOUR_MONGODB_CONNECTION_STRING>!$MONGO_URL!" .env
     sed -i "s!<YOUR_PUBLIC_IP_ADDRESS>!$BASE_PATH!" .env
+    cd ..
 done
 
 #cd /app
