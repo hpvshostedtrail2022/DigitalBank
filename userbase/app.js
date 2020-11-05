@@ -17,7 +17,7 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-let basePath = 'http://localhost';
+let basePath = 'localhost';
 if (process.env.NODE_ENV!='development') basePath = process.env.BASE_PATH;
 
 console.log('Base Path: ', basePath)
