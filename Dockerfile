@@ -27,6 +27,6 @@ ENV MONGO_URL mongodb://9.30.238.160:27017/test
 
 EXPOSE 3100 3200 3400 3600 3800 4000 4100
 
-ENTRYPOINT ["/app/entrypoint.sh", "$MONGO_URL"]
-#CMD $MONGO_URL
+ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["$MONGO_URL"]
 #CMD [ "npm","start" ]
