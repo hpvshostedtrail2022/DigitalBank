@@ -43,7 +43,7 @@ console.log(`Running on ${process.env.BASE_PATH}:${port}, connecting to ${proces
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     () => {
-        server.listen(port, function(){
+        app.listen(port, function(){
             console.log("Server running on port: %d", port)
         })
     },

@@ -177,6 +177,7 @@ module.exports = function (request, basePath, ports, dateFormat) {
                 uri: `http://${basePath}:${ports.authentication}${process.env.GET_USERS_ENDPOINT}`,
                 json: true
             };
+            console.log(options);
             request.get(options, function (err, response, body) {
                 if (err) {
                     reject(err);
