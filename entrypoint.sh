@@ -5,7 +5,8 @@ set -e
 MONGO_URL=$1
 BASE_PATH=127.0.0.1
 DEPLOYMENT=production
-
+echo $MONGO_URL
+echo ${MONGO_URL}
 #cp -r portal/.routes.bak portal/routes
 #wget $MONGO_CERT
 

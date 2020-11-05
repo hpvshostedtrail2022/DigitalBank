@@ -18,7 +18,7 @@ RUN npm install; npm prune --production && \
     rm iptables.conf
 
 ENV NODE_ENV production
-ENV MONGO_URL mongodb://9.30.238.160:27017/test
+ENV MONGO_CONN_STR mongodb://9.30.238.160:27017/test
 #ENV SESSION_SECRET 5a4e0d2c6198976aaff66bc8
 #ENV MONGO_USERNAME mongo
 #ENV MONGO_PASSWORD mongo1234
@@ -28,5 +28,5 @@ ENV MONGO_URL mongodb://9.30.238.160:27017/test
 EXPOSE 3100 3200 3400 3600 3800 4000 4100
 
 ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["$MONGO_URL"]
+CMD ["$MONGO_CONN_STR"]
 #CMD [ "npm","start" ]
