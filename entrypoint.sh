@@ -30,7 +30,7 @@ function start {
 }
 
 #ps -ef
-#cd /app && npm start & 
+cd /app && ls -l && npm start & 
+ls -l
 ps -ef
-#/sbin/initi 
 exec "$@"
