@@ -23,6 +23,5 @@ done
 
 #cd /app
 
-npm start & 
-
+#npm start & 
 exec /sbin/init
