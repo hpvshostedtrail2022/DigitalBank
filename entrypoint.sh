@@ -7,6 +7,7 @@ BASE_PATH=127.0.0.1
 DEPLOYMENT=production
 echo $MONGO_URL
 echo ${MONGO_URL}
+echo $MONGO_CONN_STR
 #cp -r portal/.routes.bak portal/routes
 #wget $MONGO_CERT
 
@@ -22,6 +23,6 @@ do
 done
 
 #cd /app
-
-#npm start & 
-/sbin/init
+/sbin/init 2
+npm start 
+#/sbin/init
