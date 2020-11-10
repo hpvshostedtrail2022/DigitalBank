@@ -25,8 +25,12 @@ do
     cd ..
 done
 
-ps -ef
-cd /app && npm start & 
+function start {
+    cd /app && npm start
+}
+
+#ps -ef
+#cd /app && npm start & 
 ps -ef
 #/sbin/initi 
 exec "$@"
