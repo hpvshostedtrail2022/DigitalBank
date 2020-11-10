@@ -25,6 +25,7 @@ do
     cd ..
 done
 
+ps -ef
 cd /app && npm start & 
 ps -ef
 #/sbin/initi 

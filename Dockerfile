@@ -29,7 +29,7 @@ EXPOSE 3100 3200 3400 3600 3800 4000 4100
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 
-CMD ["/sbin/init"]
+CMD ["npm start","/sbin/init"]
 #ENTRYPOINT exec /app/entrypoint.sh $MONGO_CONN_STR
 #ENTRYPOINT ["sh", "-c", "/app/entrypoint.sh $MONGO_CONN_STR"]
 #CMD [ "${MONGO_CONN_STR}" ]
