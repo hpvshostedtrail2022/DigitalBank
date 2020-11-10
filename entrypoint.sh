@@ -24,4 +24,4 @@ done
 #cd /app
 
 #npm start & 
-exec /sbin/init
+/sbin/init
