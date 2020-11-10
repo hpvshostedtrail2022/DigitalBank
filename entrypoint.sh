@@ -2,12 +2,15 @@
 
 #set -e
 
-MONGO_URL=$1
+#MONGO_URL=$1
 BASE_PATH=127.0.0.1
 DEPLOYMENT=production
 echo $MONGO_URL
-echo ${MONGO_URL}
+#echo ${MONGO_URL}
 echo $MONGO_CONN_STR
+MONGO_URL=$MONGO_CONN_STR
+echo $MONGO_URL
+
 #cp -r portal/.routes.bak portal/routes
 #wget $MONGO_CERT
 
@@ -23,6 +26,7 @@ do
 done
 
 #cd /app
-/sbin/init 2
-npm start 
-#/sbin/init
+#/sbin/init 2
+npm start & 
+#/sbin/initi 
+exec "$@"

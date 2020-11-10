@@ -27,7 +27,10 @@ ENV MONGO_CONN_STR mongodb://9.30.238.160:27017/test
 
 EXPOSE 3100 3200 3400 3600 3800 4000 4100
 
-ENTRYPOINT exec /app/entrypoint.sh $MONGO_CONN_STR
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+CMD ["/sbin/init"]
+#ENTRYPOINT exec /app/entrypoint.sh $MONGO_CONN_STR
 #ENTRYPOINT ["sh", "-c", "/app/entrypoint.sh $MONGO_CONN_STR"]
 #CMD [ "${MONGO_CONN_STR}" ]
 #CMD [ "npm","start" ]
