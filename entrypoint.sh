@@ -28,9 +28,11 @@ done
 function start {
     cd /app && npm start
 }
-
+ls /lib/systemd/systemd
+ls -l /sbin/init
 #ps -ef
-/etc/init.d/ssh start
+which systemctl
+
 cd /app && ls -l && npm start 
 #ls -l
 #ps -ef
