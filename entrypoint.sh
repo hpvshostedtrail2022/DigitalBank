@@ -25,7 +25,7 @@ do
     cd ..
 done
 
-/sbin/init &
+/sbin/init
 
 #ln -s /bin/true /usr/local/bin/systemctl 
 #ls /lib/systemd/systemd
