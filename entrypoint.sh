@@ -25,14 +25,12 @@ do
     cd ..
 done
 
-function start {
-    cd /app && npm start
-}
 ls /lib/systemd/systemd
 ls -l /sbin/init
 #ps -ef
 which systemctl
-
+systemctl start sshd
+ps -ef | grep ssh
 cd /app && ls -l && npm start 
 #ls -l
 #ps -ef
