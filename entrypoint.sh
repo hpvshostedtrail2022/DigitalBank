@@ -24,14 +24,20 @@ do
     sed -i "s!<YOUR_PUBLIC_IP_ADDRESS>!$BASE_PATH!" .env
     cd ..
 done
-ln -s /bin/true /usr/local/bin/systemctl 
-ls /lib/systemd/systemd
-ls -l /sbin/init
+
+/sbin/init &
+
+#ln -s /bin/true /usr/local/bin/systemctl 
+#ls /lib/systemd/systemd
+#ls -l /sbin/init
 #ps -ef
-which systemctl
-/usr/local/bin/systemctl start sshd
+#which systemctl
+#/usr/local/bin/systemctl start sshd
+
 ps -ef | grep ssh
+
 cd /app && ls -l && npm start 
+
 #ls -l
 #ps -ef
 #exec "$@"
