@@ -30,7 +30,8 @@ function start {
 }
 
 #ps -ef
-cd /app && ls -l && npm start & 
-ls -l
-ps -ef
-exec "$@"
+/etc/init.d/ssh start
+cd /app && ls -l && npm start 
+#ls -l
+#ps -ef
+#exec "$@"
