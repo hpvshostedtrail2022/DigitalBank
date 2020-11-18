@@ -1,5 +1,6 @@
 #FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
-FROM us.icr.io/hpvs121/hpvsop-base:1.2.2-release-cedc95a
+FROM soltest4hpvsop/hpvsop-base2:1.2.2-release-cedc95a
+#FROM us.icr.io/hpvs121/hpvsop-base:1.2.2-release-cedc95a
 # Upgrade npm to latest version
 
 RUN apt-get update && \
