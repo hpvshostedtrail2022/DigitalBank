@@ -16,7 +16,8 @@ whoami
 #ls -al /etc/ssh/ssh*key
 
 echo "start mongo db"
-/usr/bin/mongod -f /etc/mongod.conf
+/usr/bin/mongod -f /etc/mongod.conf &
+
 #ls /etc/init.d
 #/etc/init.d/mongod start
 
