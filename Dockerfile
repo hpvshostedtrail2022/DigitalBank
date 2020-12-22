@@ -4,7 +4,7 @@ FROM us.icr.io/hpvs121/hpvsop-base-ssh:1.2.3-release-cedc95a
 
 COPY --chown=root:root config/iptables.conf /etc/iptables/
 COPY start.sh /root/start.sh
-COPY config/mongod.conf /etc/mongod.conf
+#COPY config/mongod.conf /etc/mongod.conf
 COPY config/mongod /etc/init.d/mongod
 
 RUN apt-get update && \
@@ -28,7 +28,7 @@ RUN apt-get update && \
     chmod +x /etc/init.d/mongod && \
     rm -f /usr/local/bin/systemctl
 
-#COPY config/mongod.conf /etc/mongod.conf
+COPY config/mongod.conf /etc/mongod.conf
 #COPY config/mongod /etc/init.d/mongod
 
 
