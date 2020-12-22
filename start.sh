@@ -17,8 +17,8 @@ whoami
 
 ls /etc/init.d -l
 
-#echo "start mongo db"
-#/usr/bin/mongod -f /etc/mongod.conf &
+echo "start mongo db"
+/usr/bin/mongod -f /etc/mongod.conf &
 
 #sed -i "s/#security/security/" /etc/mongod.conf
 #sed -i "s/#  auth/  auth/" /etc/mongod.conf
