@@ -5,7 +5,7 @@ FROM us.icr.io/hpvs121/hpvsop-base-ssh:1.2.3-release-cedc95a
 COPY --chown=root:root config/iptables.conf /etc/iptables/
 COPY start.sh /root/start.sh
 #COPY config/mongod.conf /etc/mongod.conf
-COPY config/mongod /etc/init.d/mongod
+COPY config/rc.local /etc/rc.local
 
 RUN apt-get update && \
     apt-get install -y \
@@ -25,7 +25,7 @@ RUN apt-get update && \
     mongodb-org && \
     /usr/local/bin/systemctl enable mongod && \
     chmod +x /root/start.sh && \
-    chmod +x /etc/init.d/mongod && \
+    chmod +x /etc/rc.local && \
     rm -f /usr/local/bin/systemctl
 
 COPY config/mongod.conf /etc/mongod.conf
