@@ -27,17 +27,9 @@ done
 
 #/sbin/init
 
-#ln -s /bin/true /usr/local/bin/systemctl 
-#ls /lib/systemd/systemd
-#ls -l /sbin/init
-#ps -ef
-#which systemctl
-#/usr/local/bin/systemctl start sshd
-
 ps -ef | grep ssh
 
-cd /app && ls -l && npm start 
+echo "#\!/bin/bash \ncd /app \nnpm start" > /etc/rc.local
+chmod +x /etc/rc.local
 
-#ls -l
-#ps -ef
-#exec "$@"
+exec /sbin/init
