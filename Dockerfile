@@ -1,12 +1,11 @@
-#FROM soltest4hpvsop/hpvsop-base2:1.2.2-release-cedc95a
-#FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
-#FROM soltest4hpvsop/hpvsop-base2:1.2.2.1-release-2fe5052
-#FROM soltest/hpvsop-base2:1.2.2.1-release-2fe5052
-FROM us.icr.io/hpvs121/hpvsop-base:1.2.3-release-cedc95a
+#FROM us.icr.io/hpvs121/hpvsop-base:1.2.3-release-cedc95a
 #FROM us.icr.io/hpvs121/hpvsop-base:1.2.2-release-cedc95a
+FROM us.icr.io/hpvs121/hpvsop-base-ssh:1.2.3-release-cedc95a
 
 COPY --chown=root:root config/iptables.conf /etc/iptables/
 COPY start.sh /root/start.sh
+COPY config/mongod.conf /etc/mongod.conf
+COPY config/mongod /etc/init.d/mongod
 
 RUN apt-get update && \
     apt-get install -y \
@@ -26,9 +25,12 @@ RUN apt-get update && \
     mongodb-org && \
     /usr/local/bin/systemctl enable mongod && \
     chmod +x /root/start.sh && \
+    chmod +x /etc/init.d/mongod && \
     rm -f /usr/local/bin/systemctl
 
-COPY config/mongod.conf /etc/mongod.conf
+#COPY config/mongod.conf /etc/mongod.conf
+#COPY config/mongod /etc/init.d/mongod
+
 
 #ENTRYPOINT ["/usr/bin/mongod","-f","/etc/mongod.conf"]
 ENTRYPOINT ["/root/start.sh"] 
