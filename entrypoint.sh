@@ -29,7 +29,7 @@ done
 
 ps -ef | grep ssh
 
-echo "#\!/bin/bash \ncd /app \nnpm start" > /etc/rc.local
+echo -e "#!/bin/bash\ncd /app\nnpm start" > /etc/rc.local
 chmod +x /etc/rc.local
 
 exec /sbin/init
