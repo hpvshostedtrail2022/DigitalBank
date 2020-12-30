@@ -20,8 +20,9 @@ app.all('*', function (req, res, next) {
 let basePath = 'localhost';
 if (process.env.NODE_ENV!='development') basePath = process.env.BASE_PATH;
 
+var protocol = process.env.PROTOCOL
 console.log('Base Path: ', basePath)
 
-require('./populate.js')(request, basePath, config.ports, dateFormat);
+require('./populate.js')(request, protocol, basePath, config.ports, dateFormat);
 
 module.exports = app;

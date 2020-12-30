@@ -1,4 +1,5 @@
-module.exports = function (request, basePath, ports, dateFormat) {
+module.exports = function (request, protocol, basePath, ports, dateFormat) {
+    //console.log(request.protocol)
     var randomEntries = {
         bills: [
             {
@@ -101,9 +102,12 @@ module.exports = function (request, basePath, ports, dateFormat) {
         console.log(body);
         var options = {
             method: 'POST',
-            uri: `http://${basePath}:${ports.transactions}${process.env.CREATE_TRANSACTION_ENDPOINT}`,
+            uri: `${protocol}://${basePath}:${ports.transactions}${process.env.CREATE_TRANSACTION_ENDPOINT}`,
             body: body,
-            json: true
+            json: true,
+            rejectUnauthorized: false,//add when working with https sites
+            requestCert: false,//add when working with https sites
+            agent: false,//add when working with https sites
         };
         request.post(options, function (err, response, body) {
             return;
@@ -127,9 +131,12 @@ module.exports = function (request, basePath, ports, dateFormat) {
         console.log(body);
         var options = {
             method: 'POST',
-            uri: `http://${basePath}:${ports.bills}${process.env.UPSERT_BILL_ENDPOINT}`,
+            uri: `${protocol}://${basePath}:${ports.bills}${process.env.UPSERT_BILL_ENDPOINT}`,
             body: body,
-            json: true
+            json: true,
+            rejectUnauthorized: false,//add when working with https sites
+            requestCert: false,//add when working with https sites
+            agent: false,//add when working with https sites
         };
         request.post(options, function (err, response, body) {
             return;
@@ -139,8 +146,11 @@ module.exports = function (request, basePath, ports, dateFormat) {
     function dropBills() {
         var options = {
             method: 'GET',
-            uri: `http://${basePath}:${ports.bills}${process.env.DROP_BILLS_ENDPOINT}`,
-            json: true
+            uri: `${protocol}://${basePath}:${ports.bills}${process.env.DROP_BILLS_ENDPOINT}`,
+            json: true,
+            rejectUnauthorized: false,//add when working with https sites
+            requestCert: false,//add when working with https sites
+            agent: false,//add when working with https sites
         };
         request.get(options, function (err, response, body) {
             return;
@@ -150,8 +160,11 @@ module.exports = function (request, basePath, ports, dateFormat) {
     function dropTransactions() {
         var options = {
             method: 'GET',
-            uri: `http://${basePath}:${ports.transactions}${process.env.DROP_TRANSACTIONS_ENDPOINT}`,
-            json: true
+            uri: `${protocol}://${basePath}:${ports.transactions}${process.env.DROP_TRANSACTIONS_ENDPOINT}`,
+            json: true,
+            rejectUnauthorized: false,//add when working with https sites
+            requestCert: false,//add when working with https sites
+            agent: false,//add when working with https sites
         };
         request.get(options, function (err, response, body) {
             return;
@@ -161,8 +174,11 @@ module.exports = function (request, basePath, ports, dateFormat) {
     function dropAccounts() {
         var options = {
             method: 'GET',
-            uri: `http://${basePath}:${ports.accounts}${process.env.DROP_ACCOUNTS_ENDPOINT}`,
-            json: true
+            uri: `${protocol}://${basePath}:${ports.accounts}${process.env.DROP_ACCOUNTS_ENDPOINT}`,
+            json: true,
+            rejectUnauthorized: false,//add when working with https sites
+            requestCert: false,//add when working with https sites
+            agent: false,//add when working with https sites
         };
         request.get(options, function (err, response, body) {
             return;
@@ -174,8 +190,11 @@ module.exports = function (request, basePath, ports, dateFormat) {
         return new Promise(function (resolve, reject) {
             var options = {
                 method: 'GET',
-                uri: `http://${basePath}:${ports.authentication}${process.env.GET_USERS_ENDPOINT}`,
-                json: true
+                uri: `${protocol}://${basePath}:${ports.authentication}${process.env.GET_USERS_ENDPOINT}`,
+                json: true,
+                rejectUnauthorized: false,//add when working with https sites
+                requestCert: false,//add when working with https sites
+                agent: false,//add when working with https sites
             };
             //console.log(options);
             request.get(options, function (err, response, body) {

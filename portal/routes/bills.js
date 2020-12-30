@@ -13,7 +13,10 @@ module.exports = function (app, request, ports) {
             method: 'POST',
             uri: `${req.protocol}://${req.hostname}:${ports.transactions}${process.env.CREATE_TRANSACTION_ENDPOINT}`,
             body: params,
-            json: true
+            json: true,
+            rejectUnauthorized: false,//add when working with https sites
+            requestCert: false,//add when working with https sites
+            agent: false,//add when working with https sites
         };
         request.post(options, function (error, response, body) {
             if (response.statusCode === 500) {
@@ -32,7 +35,10 @@ module.exports = function (app, request, ports) {
                 method: 'POST',
                 uri: `${req.protocol}://${req.hostname}:${ports.bills}${process.env.UPSERT_BILL_ENDPOINT}`,
                 body: params,
-                json: true
+                json: true,
+                rejectUnauthorized: false,//add when working with https sites
+                requestCert: false,//add when working with https sites
+                agent: false,//add when working with https sites
             };
             request.post(options, function (error, response, body) {
                 if (response.statusCode === 500) {
@@ -49,7 +55,10 @@ module.exports = function (app, request, ports) {
             method: 'POST',
             uri: `${req.protocol}://${req.hostname}:${ports.bills}${process.env.GET_BILLS_ENDPOINT}`,
             body: req.body,
-            json: true
+            json: true,
+            rejectUnauthorized: false,//add when working with https sites
+            requestCert: false,//add when working with https sites
+            agent: false,//add when working with https sites
         };
         request.post(options, function (error, response, body) {
             console.log('bills for ', req.body, ': ', body);

@@ -4,7 +4,10 @@ module.exports = function (app, request, ports) {
             method: 'POST',
             uri: `${req.protocol}://${req.hostname}:${ports.authentication}${process.env.LOGIN_ENDPOINT}`,
             body: req.body,
-            json: true
+            json: true,
+            rejectUnauthorized: false,//add when working with https sites
+            requestCert: false,//add when working with https sites
+            agent: false,//add when working with https sites
         };
         request.post(options, function (error, response, body) {
             if (response.statusCode === 500) {
@@ -23,7 +26,10 @@ module.exports = function (app, request, ports) {
             method: 'POST',
             uri: `${req.protocol}://${req.hostname}:${ports.authentication}${process.env.SIGNUP_ENDPOINT}`,
             body: req.body,
-            json: true
+            json: true,
+            rejectUnauthorized: false,//add when working with https sites
+            requestCert: false,//add when working with https sites
+            agent: false,//add when working with https sites
         };
         request.post(options, function (error, response, body) {
             console.log(error, response, body);
