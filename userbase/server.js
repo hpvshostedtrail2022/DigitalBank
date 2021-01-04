@@ -7,6 +7,9 @@ require('dotenv').config({silent: true, path: `${__dirname}/.env`});
 var port = 4100;
 var app = require('./app');
 
+var https = require('https');
+var fs = require('fs');
+
 var httpsOption = {
     key: fs.readFileSync('./keys/hpvsop.com.key'),
     cert: fs.readFileSync('./keys/hpvsop.com.crt')
