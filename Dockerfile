@@ -1,8 +1,9 @@
 #FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
 #FROM soltest4hpvsop/hpvsop-base2:1.2.2-release-cedc95a
-FROM soltest4hpvsop/hpvsop-base2:1.2.2.1-release-2fe5052
+#FROM soltest4hpvsop/hpvsop-base2:1.2.2.1-release-2fe5052
 #FROM us.icr.io/hpvs121/hpvsop-base:1.2.2-release-cedc95a
 # Upgrade npm to latest version
+FROM hpvsdemo/hpvsbase:latest
 
 RUN apt-get update && \
     apt-get install -y nodejs npm && \
