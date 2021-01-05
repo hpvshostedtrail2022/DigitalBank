@@ -21,7 +21,7 @@ RUN npm install; npm prune --production && \
     rm iptables.conf
 
 ENV NODE_ENV production
-ENV MONGO_CONN_STR mongodb://129.40.15.19:27017/test
+ENV MONGO_CONN_STR mongodb://test:Passw0rd@129.40.15.19:27017/test
 #ENV SESSION_SECRET 5a4e0d2c6198976aaff66bc8
 #ENV MONGO_USERNAME mongo
 #ENV MONGO_PASSWORD mongo1234
