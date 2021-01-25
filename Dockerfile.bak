@@ -1,5 +1,5 @@
 #FROM ubuntu:bionic
-FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
+FROM hpvsdemo/hpvsop-base-ssh2:non-ssh
 
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
