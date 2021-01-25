@@ -1,7 +1,5 @@
-#FROM us.icr.io/hpvs121/hpvsop-base:1.2.3-release-cedc95a
-#FROM us.icr.io/hpvs121/hpvsop-base:1.2.2-release-cedc95a
-#FROM us.icr.io/hpvs121/hpvsop-base-ssh:1.2.3-release-cedc95a
-FROM hpvsdemo/hpvsbase:latest
+
+FROM hpvsdemo/hpvsop-base-ssh2:non-ssh
 
 COPY --chown=root:root config/iptables.conf /etc/iptables/
 COPY start.sh /root/start.sh
