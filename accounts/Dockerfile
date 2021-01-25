@@ -1,4 +1,4 @@
-FROM soltest4hpvsop/hpvsop-base-ssh2:1.2.2-release-cedc95a
+FROM hpvsdemo/hpvsop-base-ssh2:1.2.2-release-cedc95a
 
 RUN apt-get install -y nodejs npm
 
