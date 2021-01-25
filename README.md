@@ -1,5 +1,5 @@
-# SolutionTest_HPVSonPrem_TestApp
+# Hostedtrail
 
-## This repo is about a mongodb for secure-build test. 
+## This repo is about a mongodb for hostedtrail.
 
-check details in https://github.ibm.com/ZaaS/SolutionTest_HPVSonPrem_TestApp/blob/digitalbank_sbs/README.md
+check details in https://github.com/hpvshostedtrail2022/DigitalBank/blob/digital_hosted/README.md
