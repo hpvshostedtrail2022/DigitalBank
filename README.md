@@ -1,4 +1,4 @@
-# SolutionTest_HPVSonPrem_TestApp
+# DigitalBank_TestApp
 
 ## This repo is about use digitalbank for secure-build test. 
 
@@ -16,10 +16,10 @@ There are the securebuild configuration samples:
 ```
 networktemplates:
 - driver: macvlan
-  gateway: 9.30.238.1
+  gateway: 10.20.4.1
   name: enc4500_network
   parent: enc4500
-  subnet: 9.30.238.0/23
+  subnet: 10.20.4.0/22
 - driver: bridge
   name: internal_network
 quotagrouptemplates:
@@ -83,7 +83,7 @@ secure_build_workers:
     cert_path: /root/hpvs/config/securebuild/keys/sbs_mongo_cert
     key_path: /root/hpvs/config/securebuild/keys/sbs_mongo_key
     port: '443'
-    url: https://9.30.238.159
+    url: https://10.20.4.6
   signing_key:
     private_key_path: /root/hpvs/config/isv_mongo_sb.private
     public_key_path: /root/hpvs/config/isv_mongo_sb.pub
@@ -127,7 +127,7 @@ secure_build_workers:
     cert_path: /root/hpvs/config/securebuild/keys/sbs_digitalbank_cert
     key_path: /root/hpvs/config/securebuild/keys/sbs_digitalbank_key
     port: '443'
-    url: https://9.30.238.160
+    url: https://10.20.4.6
   signing_key:
     private_key_path: /root/hpvs/config/isv_digitalbank_sb.private
     public_key_path: /root/hpvs/config/isv_digitalbank_sb.pub
@@ -151,7 +151,7 @@ virtualservers:
   imagetag: latest
   name: hpvs_mongo
   networks:
-  - ipaddress: 9.30.238.161
+  - ipaddress: 10.20.4.6
     ref: enc4500_network
   repoid: mongo_repo
   reporegfile: /root/hpvs/encryptedRegfile_0.enc
@@ -181,7 +181,7 @@ virtualservers:
   imagetag: latest
   name: hpvs_digitalbank
   networks:
-  - ipaddress: 9.30.238.162
+  - ipaddress: 10.20.4.7
     ref: enc4500_network
   repoid: digitalbank_repo
   reporegfile: /root/hpvs/encryptedRegfile_1.enc
