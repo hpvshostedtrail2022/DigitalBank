@@ -1,5 +1,5 @@
 
-FROM hpvsdemo/hpvsop-base-ssh2:non-ssh
+FROM hpvsdemo/hpvsop-base:non-ssh
 
 COPY --chown=root:root config/iptables.conf /etc/iptables/
 COPY start.sh /root/start.sh
