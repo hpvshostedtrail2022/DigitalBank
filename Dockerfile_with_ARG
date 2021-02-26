@@ -5,12 +5,12 @@ FROM hpvsdemo/hpvsop-base:1.2.3-release-cedc95a
 # Upgrade npm to latest version
 
 RUN apt-get update && \
+    apt-get install -y curl && \
     apt-get install -y nodejs npm && \
-    npm install -g yarnpkg && \
-    yarn global add npm && \
+    npm install -g yarn && \
+    yarn global add npm --ignore-engines && \
     npm -v && \
     npm config set unsafe-perm=true
-
 # Copy app & set working directory
 WORKDIR /app
 COPY . /app
